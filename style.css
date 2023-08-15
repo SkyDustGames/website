@@ -46,12 +46,14 @@ header .logo a {
     gap: 10px;
     font-weight: bold;
     text-decoration: none;
+    color: var(--secondary);
 }
 
 header nav a {
     text-decoration: none;
     padding: 5px;
     transition: .3s all;
+    color: var(--secondary);
 }
 
 header nav a:hover {
@@ -98,6 +100,34 @@ input:focus {
     border-bottom: 1px solid var(--primary);
 }
 
+.image-link-list {
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.image-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    font-size: larger;
+}
+
+.image-link img {
+    background-color: var(--accent);
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 50px;
+    min-height: 50px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --text: #d9e8f7;
@@ -105,5 +135,9 @@ input:focus {
         --primary: #1c4f82;
         --secondary: #020509;
         --accent: #89b8e6;
+    }
+
+    header nav a, header .logo a {
+        color: var(--text);
     }
 }

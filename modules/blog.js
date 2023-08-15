@@ -25,7 +25,7 @@ module.database.get(module.database.ref(database, "/posts")).then(snapshot => {
     posts.innerHTML = "";
 
     topics.className = "topics";
-    topics.innerHTML = "";
+    topics.innerHTML = `<a href="/blog/">All</a>`;
 
     for (var category in categories) {
         topics.innerHTML += `<a href="/blog/?c=${category}">${formatProperString(category)}</a>`;
