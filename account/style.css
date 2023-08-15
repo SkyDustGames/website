@@ -1,0 +1,18 @@
+.username {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+#email {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-bottom: 1px solid var(--accent);
+    width: calc(100% - 20px);
+}
+
+#pfp, .profilePicture {
+    background-color: var(--text);
+    padding: 1px;
+    border-radius: 100vmax;
+}

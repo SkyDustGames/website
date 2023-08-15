@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Flow+Circular&display=swap');
+
+:root {
+    --text: #03080d;
+    --background: #d9e8f7;
+    --primary: #1c4f82;
+    --secondary: #b6d1ed;
+    --accent: #256bb1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+    font-weight: normal;
+}
+
+b {
+    font-weight: bold;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+a {
+    color: inherit;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--primary);
+}
+
+header .logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+header nav a {
+    text-decoration: none;
+    padding: 5px;
+    transition: .3s all;
+}
+
+header nav a:hover {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+main {
+    margin-top: 92px;
+    margin-left: 20px;
+}
+
+input {
+    display: block;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-bottom: 1px solid #b6d1ed;
+    background-color: transparent;
+    color: var(--text);
+    outline: none;
+    transition: .3s border-bottom;
+}
+
+input.error {
+    border-bottom: 1px solid var(--accent);
+}
+
+input[type=submit] {
+    border: none;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--background);
+    transition: .3s all;
+}
+
+input[type=submit]:hover {
+    border: none;
+    color: var(--text);
+    background-color: var(--secondary);
+}
+
+input:focus {
+    border-bottom: 1px solid var(--primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #d9e8f7;
+        --background: #03080d;
+        --primary: #1c4f82;
+        --secondary: #020509;
+        --accent: #89b8e6;
+    }
+}
