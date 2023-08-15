@@ -14,9 +14,22 @@ function addPost(post, category) {
     `;
 }
 
+function formatProperString(input) {
+    return input[0].toUpperCase() + input.substring(1);
+}
+
+const topics = document.querySelector(".topics");
+
 module.database.get(module.database.ref(database, "/posts")).then(snapshot => {
     const categories = snapshot.val() || {};
     posts.innerHTML = "";
-    for (var category in categories)
-        categories[category].forEach((post) => addPost(post, category));
+
+    topics.className = "topics";
+    topics.innerHTML = "";
+
+    for (var category in categories) {
+        topics.innerHTML += `<a href="/blog/?c=${category}">${formatProperString(category)}</a>`;
+        if (!params.c || category == params.c)
+            categories[category].forEach((post) => addPost(post, category));
+    }
 });
