@@ -1,9 +1,9 @@
 import { auth, database, module } from "./firebase.js";
-import params from "./query.js";
 
-if (!params.p || !params.c) window.location.replace("/blog");
+const c = window.location.href.split("/blog/")[1];
+const p = window.location.href.split("/blog/")[2];
 
-const snapshot = await module.database.get(module.database.ref(database, `/posts/${params.c}`));
+const snapshot = await module.database.get(module.database.ref(database, `/posts/${c}`));
 const posts = snapshot.val();
 
 if (!posts) window.location.replace("/blog");
@@ -11,7 +11,7 @@ if (!posts) window.location.replace("/blog");
 let post;
 let postIndex;
 for (let i = 0; i < posts.length; i++) {
-    if (posts[i].name == params.p) {
+    if (posts[i].name == p) {
         post = posts[i];
         postIndex = i;
         break;
@@ -35,11 +35,11 @@ const comments = (post.comments || []).sort((a,b) => (a.likes - a.dislikes) - (b
 let i = 0;
 
 async function like(comment, buttons, index) {
-    const ref = module.database.ref(database, `/posts/${params.c}/${postIndex}/comments/${index}`);
+    const ref = module.database.ref(database, `/posts/${c}/${postIndex}/comments/${index}`);
 
     if (comment.likes.includes(auth.currentUser.uid)) {
         comment.likes.splice(comment.likes.indexOf(auth.currentUser.uid), 1);
-        buttons[0].innerHTML = `<img src="/assets/like.png" width="32px" height="32px">${comment.likes.length}`;
+        buttons[0].innerHTML = `<img src="/like.png" width="32px" height="32px">${comment.likes.length}`;
 
         await module.database.set(ref, comment);
         return;
@@ -47,21 +47,21 @@ async function like(comment, buttons, index) {
 
     if (comment.dislikes.includes(auth.currentUser.uid)) {
         comment.dislikes.splice(comment.dislikes.indexOf(auth.currentUser.uid), 1);
-        buttons[1].innerHTML = `<img src="/assets/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
+        buttons[1].innerHTML = `<img src="/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
     }
 
     comment.likes.push(auth.currentUser.uid);
-    buttons[0].innerHTML = `<img src="/assets/like.png" width="32px" height="32px">${comment.likes.length}`;
+    buttons[0].innerHTML = `<img src="/like.png" width="32px" height="32px">${comment.likes.length}`;
 
     await module.database.set(ref, comment);
 }
 
 async function dislike(comment, buttons, index) {
-    const ref = module.database.ref(database, `/posts/${params.c}/${postIndex}/comments/${index}/dislikes`);
+    const ref = module.database.ref(database, `/posts/${c}/${postIndex}/comments/${index}/dislikes`);
 
     if (comment.dislikes.includes(auth.currentUser.uid)) {
         comment.dislikes.splice(comment.dislikes.indexOf(auth.currentUser.uid), 1);
-        buttons[1].innerHTML = `<img src="/assets/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
+        buttons[1].innerHTML = `<img src="/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
 
         await module.database.set(ref, comment);
         return;
@@ -69,11 +69,11 @@ async function dislike(comment, buttons, index) {
 
     if (comment.likes.includes(auth.currentUser.uid)) {
         comment.likes.splice(comment.likes.indexOf(auth.currentUser.uid), 1);
-        buttons[0].innerHTML = `<img src="/assets/like.png" width="32px" height="32px">${comment.likes.length}`;
+        buttons[0].innerHTML = `<img src="/like.png" width="32px" height="32px">${comment.likes.length}`;
     }
 
     comment.dislikes.push(auth.currentUser.uid);
-    buttons[1].innerHTML = `<img src="/assets/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
+    buttons[1].innerHTML = `<img src="/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
 
     await module.database.set(ref, comment.dislikes);
 }
@@ -81,7 +81,7 @@ async function dislike(comment, buttons, index) {
 comments.forEach(async comment => {
     let data;
     const snapshot = await module.database.get(module.database.ref(database, `/users/${comment.uid}`)).catch(() => {
-        data = { name: "Private user", photoURL: "/assets/anonymous.png" };
+        data = { name: "Private user", photoURL: "/anonymous.png" };
     });
 
     if (snapshot) data = snapshot.val();
@@ -120,11 +120,11 @@ comments.forEach(async comment => {
         const dislikeBtn = document.createElement("button");
 
         likeBtn.addEventListener("click", () => like(comment, [likeBtn, dislikeBtn], j));
-        likeBtn.innerHTML = `<img src="/assets/like.png" width="32px" height="32px">${comment.likes.length}`;
+        likeBtn.innerHTML = `<img src="/like.png" width="32px" height="32px">${comment.likes.length}`;
         bottom.append(likeBtn);
 
         dislikeBtn.addEventListener("click", () => dislike(comment, [likeBtn, dislikeBtn], j));
-        dislikeBtn.innerHTML = `<img src="/assets/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
+        dislikeBtn.innerHTML = `<img src="/dislike.png" width="32px" height="32px">${comment.dislikes.length}`;
         bottom.append(dislikeBtn);
 
         div.append(bottom);
@@ -155,7 +155,7 @@ postComment.addEventListener("click", async () => {
 
     let data;
     const snapshot = await module.database.get(module.database.ref(database, `/users/${comment.uid}`)).catch(() => {
-        data = { name: "Private user", photoURL: "/assets/anonymous.png" };
+        data = { name: "Private user", photoURL: "/anonymous.png" };
     });
 
     if (snapshot) data = snapshot.val();
@@ -190,17 +190,17 @@ postComment.addEventListener("click", async () => {
     const dislikeBtn = document.createElement("button");
 
     likeBtn.addEventListener("click", () => like(comment, [likeBtn, dislikeBtn], j));
-    likeBtn.innerHTML = `<img src="/assets/like.png" width="32px" height="32px">0`;
+    likeBtn.innerHTML = `<img src="/like.png" width="32px" height="32px">0`;
     bottom.append(likeBtn);
 
     dislikeBtn.addEventListener("click", () => dislike(comment, [likeBtn, dislikeBtn], j));
-    dislikeBtn.innerHTML = `<img src="/assets/dislike.png" width="32px" height="32px">0`;
+    dislikeBtn.innerHTML = `<img src="/dislike.png" width="32px" height="32px">0`;
     bottom.append(dislikeBtn);
 
     div.append(bottom);
 
     commentsDiv.append(div);
 
-    const ref = module.database.ref(database, `/posts/${params.c}/${postIndex}/comments`);
+    const ref = module.database.ref(database, `/posts/${c}/${postIndex}/comments`);
     await module.database.set(ref, comments);
 });

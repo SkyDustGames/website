@@ -1,10 +1,9 @@
 import { database, module } from "./firebase.js";
-import params from "./query.js";
 
 const posts = document.getElementById("posts");
 function addPost(post, category) {
     posts.innerHTML += `
-<a class="post${post.important ? " important": ""}" href="/blog/post.html?p=${encodeURI(post.name)}&c=${category}">
+<a class="post${post.important ? " important": ""}" href="/blog/post/${category}/${encodeURI(post.name)}">
     <img src="${post.image}">
     <div>
         <h2>${post.name}</h2>
@@ -13,6 +12,8 @@ function addPost(post, category) {
 </a>
     `;
 }
+
+const c = window.location.href.split("/blog/")[1];
 
 function formatProperString(input) {
     return input[0].toUpperCase() + input.substring(1);
@@ -28,8 +29,8 @@ module.database.get(module.database.ref(database, "/posts")).then(snapshot => {
     topics.innerHTML = `<a href="/blog/">All</a>`;
 
     for (var category in categories) {
-        topics.innerHTML += `<a href="/blog/?c=${category}">${formatProperString(category)}</a>`;
-        if (!params.c || category == params.c)
+        topics.innerHTML += `<a href="/blog/${category}">${formatProperString(category)}</a>`;
+        if (!c || category == c)
             categories[category].forEach((post) => addPost(post, category));
     }
 });

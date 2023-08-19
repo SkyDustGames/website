@@ -6,7 +6,7 @@ async function getPublicData(user) {
     const snapshot = await module.database.get(module.database.ref(database, "/users/" + user.uid)).catch(e => {
         canLoad = false;
         document.getElementById("username").innerText = "Private account";
-        document.getElementById("pfp").src = "/assets/anonymous.png";
+        document.getElementById("pfp").src = "/anonymous.png";
     });
 
     if (!canLoad) return false;

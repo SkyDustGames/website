@@ -65,7 +65,7 @@ signUp.addEventListener("submit", e => {
 
     module.auth.createUserWithEmailAndPassword(auth, email, passwordInput.value).then(async result => {
         const storageRef = module.storage.ref(storage, `/users/${result.user.uid}/profile-picture`);
-        const blob = await fetch("/assets/default_user.png").then(r => r.blob());
+        const blob = await fetch("/default_user.png").then(r => r.blob());
         await module.storage.uploadBytes(storageRef, blob);
 
         const ref = module.database.ref(database, `/users/${result.user.uid}`);
