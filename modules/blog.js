@@ -3,7 +3,7 @@ import { database, module } from "./firebase.js";
 const posts = document.getElementById("posts");
 function addPost(post, category) {
     posts.innerHTML += `
-<a class="post${post.important ? " important": ""}" href="/blog/post/${category}/${encodeURI(post.name)}">
+<a class="post${post.important ? " important": ""}" href="/blog/${category}/${encodeURI(post.name)}">
     <img src="${post.image}">
     <div>
         <h2>${post.name}</h2>

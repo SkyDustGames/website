@@ -1,0 +1,50 @@
+#projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#projects a {
+    text-decoration: none;
+}
+
+.project {
+    background-color: var(--accent);
+    color: var(--background);
+    padding: 20px;
+    min-width: 355px;
+    min-height: 156px;
+    transition: .3s scale, .3s box-shadow;
+}
+
+.project:hover {
+    scale: 1.05;
+    box-shadow: 0 5px 5px var(--accent);
+}
+
+.topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.topic {
+    background-color: var(--primary);
+    padding: 10px;
+    color: var(--text);
+    transition: .3s scale, .3s box-shadow;
+}
+
+.topic:hover {
+    scale: 1.1;
+    box-shadow: 0 10px 10px var(--secondary);
+}
+
+@media screen and (max-width: 600px) {
+    .project {
+        width: calc(100% - 20px);
+        min-width: calc(100% - 20px);
+        max-width: calc(100% - 20px);
+    }
+}

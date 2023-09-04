@@ -1,9 +1,16 @@
 import { auth, database, module } from "./firebase.js";
 
-const c = window.location.href.split("/blog/")[1];
-const p = window.location.href.split("/blog/")[2];
+function getParameter(index) {
+    const afterBlog = window.location.href.split("/blog/")[1];
+    const array = afterBlog.split("/");
 
-const snapshot = await module.database.get(module.database.ref(database, `/posts/${c}`));
+    return array[index];
+}
+
+const category = getParameter(0);
+const postName = decodeURI(getParameter(1));
+
+const snapshot = await module.database.get(module.database.ref(database, `/posts/${category}`));
 const posts = snapshot.val();
 
 if (!posts) window.location.replace("/blog");
@@ -11,7 +18,7 @@ if (!posts) window.location.replace("/blog");
 let post;
 let postIndex;
 for (let i = 0; i < posts.length; i++) {
-    if (posts[i].name == p) {
+    if (posts[i].name == postName) {
         post = posts[i];
         postIndex = i;
         break;
@@ -35,7 +42,7 @@ const comments = (post.comments || []).sort((a,b) => (a.likes - a.dislikes) - (b
 let i = 0;
 
 async function like(comment, buttons, index) {
-    const ref = module.database.ref(database, `/posts/${c}/${postIndex}/comments/${index}`);
+    const ref = module.database.ref(database, `/posts/${category}/${postIndex}/comments/${index}`);
 
     if (comment.likes.includes(auth.currentUser.uid)) {
         comment.likes.splice(comment.likes.indexOf(auth.currentUser.uid), 1);
@@ -57,7 +64,7 @@ async function like(comment, buttons, index) {
 }
 
 async function dislike(comment, buttons, index) {
-    const ref = module.database.ref(database, `/posts/${c}/${postIndex}/comments/${index}/dislikes`);
+    const ref = module.database.ref(database, `/posts/${category}/${postIndex}/comments/${index}/dislikes`);
 
     if (comment.dislikes.includes(auth.currentUser.uid)) {
         comment.dislikes.splice(comment.dislikes.indexOf(auth.currentUser.uid), 1);
@@ -201,6 +208,6 @@ postComment.addEventListener("click", async () => {
 
     commentsDiv.append(div);
 
-    const ref = module.database.ref(database, `/posts/${c}/${postIndex}/comments`);
+    const ref = module.database.ref(database, `/posts/${category}/${postIndex}/comments`);
     await module.database.set(ref, comments);
 });

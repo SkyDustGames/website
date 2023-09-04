@@ -38,6 +38,7 @@ header {
     align-items: center;
     padding: 20px;
     background-color: var(--primary);
+    z-index: 99;
 }
 
 header .logo a {
@@ -139,5 +140,11 @@ input:focus {
 
     header nav a, header .logo a {
         color: var(--text);
+    }
+}
+
+@media screen and (max-width: 430px) {
+    header .logo a {
+        font-size: 0;
     }
 }

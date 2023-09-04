@@ -74,7 +74,7 @@ signUp.addEventListener("submit", e => {
             photoURL: await module.storage.getDownloadURL(storageRef)
         });
 
-        window.location.replace("/account/");
+        window.location.replace("/account");
     }).catch(e => {
         err(e, true, false);
     });
@@ -90,7 +90,7 @@ signIn.addEventListener("submit", e => {
     }
 
     module.auth.signInWithEmailAndPassword(auth, email, passwordInput.value).then(() => {
-        window.location.replace("/account/");
+        window.location.replace("/account");
     }).catch(e => {
         err(e, true, false);
     });
@@ -98,7 +98,7 @@ signIn.addEventListener("submit", e => {
 
 module.auth.onAuthStateChanged(auth, user => {
     if (user)
-        window.location.replace("/account/");
+        window.location.replace("/account");
 });
 
 document.getElementById("forgotPassword").addEventListener("click", e => {

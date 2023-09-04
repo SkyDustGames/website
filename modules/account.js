@@ -68,7 +68,7 @@ async function init(data) {
 
 module.auth.onAuthStateChanged(auth, async user => {
     if (!user && !params.u) {
-        window.location.replace("/auth/");
+        window.location.replace("/auth");
         return;
     }
 
