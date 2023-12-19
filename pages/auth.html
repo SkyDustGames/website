@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/auth.css">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/auth.css">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-    <title>SkyDust - Authenticate</title>
-    <!-- METADATA -->
+  <title>SkyDust - Authenticate</title>
+  <!-- METADATA -->
 </head>
 <body>
-    <div class="err"></div>
+  <div class="err"></div>
 
-    <form id="first" class="visible">
-        <input type="email" placeholder="E-mail">
-        <input type="submit" value="Continue">
-    </form>
+  <form id="first" class="visible">
+    <input type="email" placeholder="E-mail">
+    <input type="submit" value="Continue">
+  </form>
 
-    <form id="signIn">
-        <input type="password" placeholder="Password">
-        <input type="submit" value="Sign In">
-        <a href="/auth/resetPassword" id="forgotPassword">Forgot password?</a>
-    </form>
+  <form id="signIn">
+    <input type="password" placeholder="Password">
+    <input type="submit" value="Sign In">
+    <a href="/auth/resetPassword" id="forgotPassword">Forgot password?</a>
+  </form>
 
-    <form id="signUp">
-        <input type="password" placeholder="Password">
-        <input type="password" name="confirm" placeholder="Confirm Password">
-        <input type="submit" value="Sign Up">
-    </form>
+  <form id="signUp">
+    <input type="password" placeholder="Password">
+    <input type="password" name="confirm" placeholder="Confirm Password">
+    <input type="submit" value="Sign Up">
+  </form>
 
-    <script type="module" src="/modules/auth.js"></script>
+  <script type="module" src="/modules/auth.js"></script>
 </body>
 </html>

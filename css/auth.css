@@ -1,43 +1,43 @@
 * {
-    font-size: large;
-    text-align: center;
+  font-size: large;
+  text-align: center;
 }
 
 form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    visibility: hidden;
-    transition: .3s all;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s all;
 }
 
 form.visible {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 input[type=submit] {
-    position: relative;
-    left: 50%;
-    width: 100%;
-    translate: -50% 0;
+  position: relative;
+  left: 50%;
+  width: 100%;
+  translate: -50% 0;
 }
 
 .err {
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    translate: -50% 0;
-    padding: 20px;
-    background-color: var(--accent);
-    color: var(--background);
-    border-radius: 10px;
-    z-index: -1;
-    transition: .3s top;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  translate: -50% 0;
+  padding: 20px;
+  background-color: var(--accent);
+  color: var(--background);
+  border-radius: 10px;
+  z-index: -1;
+  transition: .3s top;
 }
 
 .err.visible {
-    top: 100px;
+  top: 100px;
 }

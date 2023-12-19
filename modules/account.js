@@ -2,81 +2,89 @@ import { auth, database, storage, module } from "./firebase.js";
 import params from "./query.js";
 
 async function getPublicData(user) {
-    let canLoad = true;
-    const snapshot = await module.database.get(module.database.ref(database, "/users/" + user.uid)).catch(e => {
-        canLoad = false;
-        document.getElementById("username").innerText = "Private account";
-        document.getElementById("pfp").src = "/anonymous.png";
-    });
+  let canLoad = true;
+  const snapshot = await module.database.get(module.database.ref(database, "/users/" + user.uid)).catch(e => {
+    canLoad = false;
+    document.getElementById("username").innerText = "Private account";
+    document.getElementById("pfp").src = "/anonymous.png";
+  });
 
-    if (!canLoad) return false;
+  if (!canLoad) return false;
 
-    const data = snapshot.val();
-    
-    document.getElementById("username").innerText = data.name;
-    document.getElementById("pfp").src = data.photoURL;
+  const data = snapshot.val();
+  
+  document.getElementById("username").innerText = data.name;
+  document.getElementById("pfp").src = data.photoURL;
 
-    return data;
+  return data;
 }
 
 async function initCurrentUser(user) {
-    const data = await getPublicData(user);
-    document.getElementById("displayName").value = data.name;
-    document.querySelector(".profilePicture").src = data.photoURL;
+  const data = await getPublicData(user);
+  document.getElementById("displayName").value = data.name;
+  document.querySelector(".profilePicture").src = data.photoURL;
 
-    const form = document.getElementById("update");
-    form.addEventListener("submit", async e => {
-        e.preventDefault();
+  const form = document.getElementById("update");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
 
-        if (e.submitter.value == "Sign Out") {
-            module.auth.signOut(auth);
-            return;
-        } else if (e.submitter.value == "Switch Account Type") {
-            const ref = module.database.ref(database, `/users/${user.uid}/public`);
+    if (e.submitter.value == "Sign Out") {
+      module.auth.signOut(auth);
+      return;
+    } else if (e.submitter.value == "Switch Account Type") {
+      const ref = module.database.ref(database, `/users/${user.uid}/public`);
 
-            let publicAccount = (await module.database.get(ref)).val();
-            if (!publicAccount) publicAccount = true;
-            else publicAccount = false;
+      let publicAccount = (await module.database.get(ref)).val();
+      if (!publicAccount) publicAccount = true;
+      else publicAccount = false;
 
-            await module.database.set(ref, publicAccount);
+      await module.database.set(ref, publicAccount);
 
-            return;
-        }
+      return;
+    }
 
-        await module.database.set(module.database.ref(database, `/users/${user.uid}/name`),
-        document.getElementById("displayName").value);
+    await module.database.set(module.database.ref(database, `/users/${user.uid}/name`),
+    document.getElementById("displayName").value);
 
-        const file = document.getElementById("profilePicture").files[0];
-        if (file)
-            await module.storage.uploadBytes(module.storage.ref(storage, `/users/${user.uid}/profile-picture`), file);
+    const file = document.getElementById("profilePicture").files[0];
+    if (file)
+      await module.storage.uploadBytes(module.storage.ref(storage, `/users/${user.uid}/profile-picture`), file);
 
-        window.location.reload();
-    });
+    window.location.reload();
+  });
 
-    document.getElementById("profilePicture").addEventListener("change", e => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => document.querySelector(".profilePicture").src = reader.result);
+  document.getElementById("profilePicture").addEventListener("change", e => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => document.querySelector(".profilePicture").src = reader.result);
 
-        const file = e.target.files[0];
-        if (file) reader.readAsDataURL(file);
-    });
+    const file = e.target.files[0];
+    if (file) reader.readAsDataURL(file);
+  });
+
+  if (user.uid === "txYWRmn5NkfTRP7y6rhihrEtgVu2") { // Admin UID
+    const admin = document.createElement("a");
+    admin.innerText = "Admin Page";
+    admin.href = "/admin";
+    form.append(admin);
+  }
 }
 
 async function init(data) {
-    if (!data) return;
+  if (!data) return;
+  // TODO: Load user's comments
 }
 
 module.auth.onAuthStateChanged(auth, async user => {
-    if (!user && !params.u) {
-        window.location.replace("/auth");
-        return;
-    }
+  if (!user && !params.u) {
+    window.location.replace("/auth");
+    return;
+  }
 
-    if (params.u && params.u !== user.uid) {
-        document.getElementById("update").remove();
-        init(await getPublicData({ uid: params.u }));
-        return;
-    }
+  if (params.u && params.u !== user.uid) {
+    document.getElementById("update").remove();
+    init(await getPublicData({ uid: params.u }));
+    return;
+  }
 
-    initCurrentUser(user);
+  initCurrentUser(user);
 });

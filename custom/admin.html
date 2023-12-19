@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+  <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+  <nav>
+    <a href="manage" class="selected"><span>Posts</span></a>
+    <a href="moderate"><span>Comments</span></a>
+    <a href="write"><span>Create post</span></a>
+    <a href="/account"><span>Back</span></a>
+  </nav>
+  
+  <div class="page selected" id="manage">
+    <h1>Manage posts</h1>
+    <a href="write">Write post</a>
+    <div id="allPosts"></div>
+  </div>
+
+  <div class="page" id="moderate">
+    <h1>Moderate comments</h1>
+    <div id="allComments">
+
+    </div>
+  </div>
+
+  <div class="page" id="write">
+    <h1>Write post</h1>
+    <form id="writePost">
+      <input name="title" placeholder="Title..."><br>
+      <input name="tagline" placeholder="Tagline..."><br>
+      <input name="category" placeholder="Category..."><br>
+      <img class="preview" name="preview"><br>
+      <input name="image" type="file"><br>
+      <textarea name="content" placeholder="Content..."></textarea>
+      <button>Submit</button>
+    </form>
+  </div>
+
+  <script src="/modules/admin.js" type="module"></script>
+</body>
+</html>

@@ -1,150 +1,150 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Flow+Circular&display=swap');
 
 :root {
-    --text: #03080d;
-    --background: #d9e8f7;
-    --primary: #1c4f82;
-    --secondary: #b6d1ed;
-    --accent: #256bb1;
+  --text: #03080d;
+  --background: #d9e8f7;
+  --primary: #1c4f82;
+  --secondary: #b6d1ed;
+  --accent: #256bb1;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Rubik", sans-serif;
-    font-weight: normal;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  font-weight: normal;
 }
 
 b {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 body {
-    background-color: var(--background);
-    color: var(--text);
+  background-color: var(--background);
+  color: var(--text);
 }
 
 a {
-    color: inherit;
+  color: inherit;
 }
 
 header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: var(--primary);
-    z-index: 99;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--primary);
+  z-index: 99;
 }
 
 header .logo a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    text-decoration: none;
-    color: var(--secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--secondary);
 }
 
 header nav a {
-    text-decoration: none;
-    padding: 5px;
-    transition: .3s all;
-    color: var(--secondary);
+  text-decoration: none;
+  padding: 5px;
+  transition: .3s all;
+  color: var(--secondary);
 }
 
 header nav a:hover {
-    background-color: var(--secondary);
-    color: var(--text);
+  background-color: var(--secondary);
+  color: var(--text);
 }
 
 main {
-    margin-top: 92px;
-    margin-left: 20px;
+  margin-top: 92px;
+  margin-left: 20px;
 }
 
 input {
-    display: block;
-    padding: 5px;
-    margin-bottom: 5px;
-    border: none;
-    border-bottom: 1px solid #b6d1ed;
-    background-color: transparent;
-    color: var(--text);
-    outline: none;
-    transition: .3s border-bottom;
+  display: block;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid #b6d1ed;
+  background-color: transparent;
+  color: var(--text);
+  outline: none;
+  transition: .3s border-bottom;
 }
 
 input.error {
-    border-bottom: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
 }
 
 input[type=submit] {
-    border: none;
-    cursor: pointer;
-    background-color: var(--primary);
-    color: var(--background);
-    transition: .3s all;
+  border: none;
+  cursor: pointer;
+  background-color: var(--primary);
+  color: var(--background);
+  transition: .3s all;
 }
 
 input[type=submit]:hover {
-    border: none;
-    color: var(--text);
-    background-color: var(--secondary);
+  border: none;
+  color: var(--text);
+  background-color: var(--secondary);
 }
 
 input:focus {
-    border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
 }
 
 .image-link-list {
-    margin-right: 20px;
-    padding: 20px;
-    border-radius: 5px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+  margin-right: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .image-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-decoration: none;
-    font-size: larger;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: larger;
 }
 
 .image-link img {
-    background-color: var(--accent);
-    max-width: 100px;
-    max-height: 100px;
-    min-width: 50px;
-    min-height: 50px;
-    padding: 5px;
-    border-radius: 10px;
+  background-color: var(--accent);
+  max-width: 100px;
+  max-height: 100px;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --text: #d9e8f7;
-        --background: #03080d;
-        --primary: #1c4f82;
-        --secondary: #020509;
-        --accent: #89b8e6;
-    }
+  :root {
+    --text: #d9e8f7;
+    --background: #03080d;
+    --primary: #1c4f82;
+    --secondary: #020509;
+    --accent: #89b8e6;
+  }
 
-    header nav a, header .logo a {
-        color: var(--text);
-    }
+  header nav a, header .logo a {
+    color: var(--text);
+  }
 }
 
 @media screen and (max-width: 430px) {
-    header .logo a {
-        font-size: 0;
-    }
+  header .logo a {
+    font-size: 0;
+  }
 }
