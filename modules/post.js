@@ -92,6 +92,7 @@ comments.forEach(async comment => {
   });
 
   if (snapshot) data = snapshot.val();
+  if (data.banned) return;
 
   comment.likes = comment.likes || [];
   comment.dislikes = comment.dislikes || [];

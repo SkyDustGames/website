@@ -3,20 +3,54 @@ import params from "./query.js";
 
 async function getPublicData(user) {
   let canLoad = true;
+  const username = document.getElementById("username");
+  const profilePicture = document.getElementById("pfp");
   const snapshot = await module.database.get(module.database.ref(database, "/users/" + user.uid)).catch(e => {
     canLoad = false;
-    document.getElementById("username").innerText = "Private account";
-    document.getElementById("pfp").src = "/anonymous.png";
+    username.innerText = "Private account";
+    profilePicture.src = "/anonymous.png";
   });
 
   if (!canLoad) return false;
 
   const data = snapshot.val();
   
-  document.getElementById("username").innerText = data.name;
-  document.getElementById("pfp").src = data.photoURL;
+  if (data.banned) {
+    username.innerText = `Banned: ${data.banned}`;
+    profilePicture.src = "/ban.png";
+  } else {
+    username.innerText = data.name;
+    profilePicture.src = data.photoURL;
+  }
 
   return data;
+}
+
+async function setupAppealForm() {
+  const form = document.getElementById("appeal");
+  form.className = "";
+
+  const textArea = form.querySelector("textarea");
+  textArea.disabled = (await module.database.get(module.database.ref(database, `/users/${auth.currentUser.uid}/appeal`))).val();
+
+  if (textArea.disabled) {
+    form.querySelector("[value=\"Submit Appeal\"]").value = "Your appeal was sent for review.";
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+
+    if (e.submitter.value === "Sign Out")
+      module.auth.signOut(auth);
+    else if (e.submitter.value == "Delete Account") {
+      await module.database.set(module.database.ref(database, `/users/${auth.currentUser.uid}`), null);
+      module.auth.deleteUser(auth.currentUser);
+    } else {
+      await module.database.set(module.database.ref(database, `/users/${auth.currentUser.uid}/appeal`), textArea.value);
+      textArea.disabled = true;
+      form.querySelector("[value=\"Submit Appeal\"]").value = "Your appeal was sent for review.";
+    }
+  });
 }
 
 async function initCurrentUser(user) {
@@ -25,6 +59,12 @@ async function initCurrentUser(user) {
   document.querySelector(".profilePicture").src = data.photoURL;
 
   const form = document.getElementById("update");
+  if (data.banned) {
+    form.remove();
+    setupAppealForm();
+    return;
+  }
+
   form.addEventListener("submit", async e => {
     e.preventDefault();
 

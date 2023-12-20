@@ -4,6 +4,8 @@ const first = document.getElementById("first");
 const signUp = document.getElementById("signUp");
 const signIn = document.getElementById("signIn");
 
+var justOpened = true;
+
 let email;
 function trigger(mail, form) {
   email = mail;
@@ -39,6 +41,7 @@ first.addEventListener("submit", e => {
     return;
   }
 
+  justOpened = false;
   module.auth.signInWithEmailAndPassword(auth, emailInput.value, "password").catch(error => {
     if (error.code == "auth/user-not-found") trigger(emailInput.value, signUp);
     else if (error.code == "auth/wrong-password") trigger(emailInput.value, signIn);
@@ -71,7 +74,8 @@ signUp.addEventListener("submit", e => {
     const ref = module.database.ref(database, `/users/${result.user.uid}`);
     await module.database.set(ref, {
       name: email.split("@")[0],
-      photoURL: await module.storage.getDownloadURL(storageRef)
+      photoURL: await module.storage.getDownloadURL(storageRef),
+      public: true
     });
 
     window.location.replace("/account");
@@ -97,7 +101,7 @@ signIn.addEventListener("submit", e => {
 });
 
 module.auth.onAuthStateChanged(auth, user => {
-  if (user)
+  if (user && justOpened)
     window.location.replace("/account");
 });
 

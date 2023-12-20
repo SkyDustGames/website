@@ -63,7 +63,6 @@ nav a:hover, nav a.selected {
   background-color: #001952;
   margin: 20px;
   padding: 20px;
-  cursor: pointer;
   border-radius: 20px;
 }
 
@@ -74,6 +73,16 @@ nav a:hover, nav a.selected {
 
 .preview {
   max-width: 50%;
+}
+
+.picture {
+  display: flex;
+  align-items: center;
+}
+
+.picture img {
+  max-width: 32px;
+  max-height: 32px;
 }
 
 input, textarea {
@@ -100,4 +109,8 @@ button {
 
 button:hover {
   filter: brightness(120%);
+}
+
+i {
+  display: block;
 }

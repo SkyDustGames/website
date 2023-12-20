@@ -16,3 +16,7 @@
   padding: 1px;
   border-radius: 100vmax;
 }
+
+.invisible {
+  display: none;
+}
